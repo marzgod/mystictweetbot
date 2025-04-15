@@ -16,10 +16,9 @@ client = tweepy.Client(
     access_token_secret=os.getenv("TWITTER_ACCESS_SECRET")
 )
 
-# 🧠 This is the webhook route Zapier calls
+# 🧠 Webhook Zapier calls
 @app.route('/tweet', methods=['POST'])
 def post_tweet():
-    # 🔥 NO auth check!
     try:
         data = request.get_json()
         tweet_text = data.get('tweet')
@@ -33,4 +32,7 @@ def post_tweet():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# ✅ Optional healthcheck route
+@app.route('/', methods=['GET'])
+def index():
     return 'Mystic Tweet Bot is live 💫', 200
