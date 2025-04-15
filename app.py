@@ -5,6 +5,7 @@ import tweepy
 import os
 
 app = Flask(__name__)
+print("🚀 Mystic TweetBot started — NO AUTH CHECK PRESENT")
 
 # Tweepy client setup using environment variables
 client = tweepy.Client(
@@ -18,6 +19,7 @@ client = tweepy.Client(
 # 🧠 This is the webhook route Zapier calls
 @app.route('/tweet', methods=['POST'])
 def post_tweet():
+    # 🔥 NO auth check!
     try:
         data = request.get_json()
         tweet_text = data.get('tweet')
@@ -31,7 +33,4 @@ def post_tweet():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Optional: base route so "/" doesn't throw 404
-@app.route('/', methods=['GET'])
-def index():
     return 'Mystic Tweet Bot is live 💫', 200
